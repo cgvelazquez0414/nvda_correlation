@@ -1,0 +1,20 @@
+import yfinance as yf
+import pandas as pd
+
+#random companies input in list
+companies_tickers = [
+    "ADES", "ADI", "ADIL", "ADM", "ADMA", "ADN", "ADNT", "ADOC", "ADP", "ADPT",
+    "ADRT", "ADSE", "ADSK", "ADT", "ADTH", "ADTN", "ADTX", "ADUS", "ADV", "ADVM",
+    "ADXN", "AE", "AEAE", "AEE", "AEG", "AEHL", "AEHR", "AEI", "AEIS", "AEL",
+    "AEM", "AEMD", "AENT", "AEO", "AEON", "AEP", "AER", "AERT", "AES", "AESI",
+    "AEVA", "AEY", "AEYE", "AEZS", "AFAR", "AFBI","NVDA"]
+
+#using yfinance to download datasets of companies
+companies = yf.download(companies_tickers, start='2023-01-15', end='2024-01-15', interval = '1wk')
+
+#confirm dataset
+print(companies)
+
+#save rawfile
+companies.to_csv('/Users/carlosvelazquez/Desktop/Coding Projects/finance/companies.csv', index=True)
+
