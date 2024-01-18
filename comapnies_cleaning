@@ -1,0 +1,53 @@
+#import pandas for cleaning
+import pandas as pd
+#import file
+companies_1 = pd.read_csv('/Users/carlosvelazquez/Desktop/Coding Projects/finance/companies.csv')
+#identify where adj close ends
+print(companies_1.iloc[:, 46])
+#drop columns after index 46
+list_columns = companies_1.columns.tolist()
+columns_to_drop = list_columns[47:]
+companies_2 = companies_1.drop(columns=columns_to_drop)
+
+#find NA
+print(companies_2.isna().sum())
+
+#found column "Adj Close.34" has 28 na's
+print(companies_2.iloc[:, 35])
+#dropping column
+companies_3 = companies_2.drop(columns='Adj Close.34')
+
+#confirm new na count
+print(companies_3.isna().sum())
+
+#drop row "Date" and confirm na count
+companies_4 = companies_3.drop(1)
+print(companies_4.isna().sum())
+
+#found column with 7 na's, and dropped the column
+print(companies_4.iloc[:, 40])
+companies_5 = companies_4.drop(columns='Adj Close.39')
+print(companies_5)
+
+#confirm na's
+print(companies_5.isna().sum())
+
+print(companies_5.columns)
+
+date_col = companies_5.columns[0]
+
+comp_5_sorted = companies_5.sort_values(by=date_col, ascending=False)
+print(comp_5_sorted)
+
+#remove index and column
+comp_5_1 = pd.DataFrame(comp_5_sorted.to_numpy())
+print(comp_5_1)
+
+#make last row the name of the columns
+name_comp = comp_5_1.iloc[-1]
+comp_5_1.columns = name_comp
+comp_5_2 = comp_5_1.iloc[:-1]
+print(comp_5_2)
+
+comp_5_2.to_csv('/Users/carlosvelazquez/Desktop/Coding Projects/finance/comp_5_2.csv', index=False)
+
